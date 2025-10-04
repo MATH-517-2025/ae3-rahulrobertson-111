@@ -1,25 +1,141 @@
 ---
-title: "MATH-517: Assignment x"
-author: "Your name"
-date: 'date of submission'
+title: "MATH-517: Assignment 3"
+author: "Robertson Rahul"
+date: '04.10.2025'
 format: pdf
 editor: visual
 ---
 
 ## Theoretical exercise
 
-Your answer goes here
+We have that $\hat{\beta}= (X^{T}WX)^{-1}X^TWY$ so it follows that we can express $\beta_0$ as a linear combination of the $Y_i's$ that only depends on the elements that are in X and W, that is $x, X_i, K, h$ §
+
+## Step 1: Compute ((X\^T W X))
+
+$$
+X^T W X =
+\begin{bmatrix}  
+1 & X_1 - x \\ 
+\vdots & \vdots \\ 
+1 & X_n - x 
+\end{bmatrix}^T 
+\begin{bmatrix} 
+K\!\left(\tfrac{X_1 - x}{h}\right) & & \\ 
+& \ddots & \\
+& & K\!\left(\tfrac{X_n - x}{h}\right)
+\end{bmatrix}
+\begin{bmatrix}  
+1 & X_1 - x \\ 
+\vdots & \vdots \\ 
+1 & X_n - x 
+\end{bmatrix}
+$$
+
+$$
+= 
+\begin{bmatrix}  
+1 & X_1 - x \\ 
+\vdots & \vdots \\ 
+1 & X_n - x 
+\end{bmatrix}^T 
+\begin{bmatrix}
+K\!\left(\tfrac{X_1 - x}{h}\right) & (X_1 - x)K\!\left(\tfrac{X_1 - x}{h}\right) \\ 
+\vdots & \vdots \\ 
+K\!\left(\tfrac{X_n - x}{h}\right) & (X_n - x)K\!\left(\tfrac{X_n - x}{h}\right) 
+\end{bmatrix}
+$$
+
+$$
+= 
+\begin{bmatrix}
+\sum_{i=1}^n K\!\left(\tfrac{X_i - x}{h}\right) & \sum_{i=1}^n (X_i - x)K\!\left(\tfrac{X_i - x}{h}\right) \\
+\sum_{i=1}^n (X_i - x)K\!\left(\tfrac{X_i - x}{h}\right) & \sum_{i=1}^n (X_i - x)^2 K\!\left(\tfrac{X_i - x}{h}\right)
+\end{bmatrix}
+$$
+
+$$
+= nh
+\begin{bmatrix}
+S_{n,0}(x) & S_{n,1}(x) \\
+S_{n,1}(x) & S_{n,2}(x)
+\end{bmatrix}
+$$
+
+Since we have a 2 by 2 matrix, we know how to calculate it's inverse
+
+$$
+(X^T W X)^{-1} 
+= \frac{1}{(nh)^2 S_{n,2}(x) S_{n,0}(x) - S_{n,1}(x)^2}
+\begin{bmatrix}
+S_{n,2}(x) & -S_{n,1}(x) \\ 
+-S_{n,1}(x) & S_{n,0}(x)
+\end{bmatrix}
+$$
+
+To simplify notations we write $K(\frac{X_i-x}{h})=K_i$ and $\frac{1}{(nh)^2 S_{n,2}(x) S_{n,0}(x)-S_{n,1}(x)^2}$ = D_n $$
+(X^T W X)^{-1} X^T W =
+\frac{1}{D_n}
+\begin{bmatrix}
+S_{n,2}(x) & -S_{n,1}(x) \\ 
+-S_{n,1}(x) & S_{n,0}(x)
+\end{bmatrix}
+\begin{bmatrix}
+K_1 & \dots & K_n \\ 
+(X_1 - x)K_1 & \dots & (X_n - x)K_n 
+\end{bmatrix}
+$$
+
+$$
+= \frac{1}{D_n}
+\begin{bmatrix}
+S_{n,2}(x)K_1 - S_{n,1}(x)(X_1 - x)K_1 & \dots & S_{n,2}(x)K_n - S_{n,1}(x)(X_n - x)K_n \\
+- S_{n,1}(x)K_1 + S_{n,0}(x)(X_1 - x)K_1 & \dots & - S_{n,1}(x)K_n + S_{n,0}(x)(X_n - x)K_n
+\end{bmatrix}
+$$The $w_{ni}$ correspond to the i'th coordinate on the first row of this matrix so we find that:
+
+$$
+w_{ni}(x) = \frac{1}{nh} \cdot 
+\frac{K\!\left(\tfrac{x - X_i}{h}\right)\Big(S_{n,2}(x) - (X_i - x)S_{n,1}(x)\Big)}{S_{n,0}(x)S_{n,2}(x) - S_{n,1}(x)^2}
+$$
+
+3\) Let
+
+$$
+D_n = \frac{1}{nh \, S_{n,0}(x) S_{n,2}(x) - S_{n,1}^2(x)} .
+$$
+
+We have
+
+$$
+\sum_{i=1}^n w_{ni}(x)
+= \frac{\sum_{i=1}^n K\!\left(\frac{x - X_i}{h}\right) S_{n,2}(x)
+- \sum_{i=1}^n (X_i - x) \, S_{n,1}(x) \, K\!\left(\frac{X_i - x}{h}\right)}{D_n} .
+$$
+
+Since $$
+\sum_{i=1}^n K\!\left(\frac{X_i - x}{h}\right) = nh \, S_{n,0}(x)
+\quad \text{and} \quad
+\sum_{i=1}^n (X_i - x) K\!\left(\frac{X_i - x}{h}\right) = nh \, S_{n,1}(x),
+$$
+
+it follows that
+
+$$
+\sum_{i=1}^n w_{ni}(x)
+= \frac{nh \, S_{n,0}(x) S_{n,2}(x) - nh \, S_{n,1}^2(x)}{D}
+= \frac{D_n}{D_n}
+= 1 .
+$$
 
 ## Practical exercise
 
 Unless stated otherwise, your answer to the practical part should include the following elements:
 
- - Description of the aim of the simulation study.
- - Description of the different quantities that intervene in your simulation study. Explain how these quantities (fixed or random) are defined and the reasoning behind the choices you made.
- - Description of your findings using appropriate graphics and/or tables (with a caption!) that are well commented in the text. 
- 
+-   Description of the aim of the simulation study.
+-   Description of the different quantities that intervene in your simulation study. Explain how these quantities (fixed or random) are defined and the reasoning behind the choices you made.
+-   Description of your findings using appropriate graphics and/or tables (with a caption!) that are well commented in the text.
+
 The code should not appear in the PDF report, unless there is a specific reason to include it.
- 
 
 ```{r}
 #| echo: false
@@ -29,5 +145,372 @@ The code should not appear in the PDF report, unless there is a specific reason 
 # Your code goes here. 
 # The `echo: false` option disables the printing of code (only output is displayed).
 # The programming language can be changed to Python or Julia
+library(shiny)
+library(ggplot2)
+library(viridis)
+library(dplyr)
+
+### ---- Core function ----
+run_blockwise_analysis_2 <- function(n, N, alpha, beta, sd_noise = 1) {
+  X <- rbeta(n, alpha, beta)
+  m <- function(x) sin(1 / (x / 3 + 0.1))
+  Y <- m(X) + rnorm(n, mean = 0, sd = sd_noise)
+  
+  m_double_prime <- function(x) {
+    inner <- x / 3 + 0.1
+    (2/9)*inner^(-3)*cos(1/inner) - (1/9)*inner^(-4)*sin(1/inner)
+  }
+  
+  block_size <- floor(n / N)
+  block_id <- rep(1:N, each = block_size)
+  if(length(block_id) < n) block_id <- c(block_id, rep(N, n - length(block_id)))
+  block_id <- block_id[1:n]
+  
+  XY <- data.frame(X = X, Y = Y)
+  blocks <- split(XY, block_id)
+  
+  fits <- lapply(blocks, function(df) {
+    if(nrow(df) >= 5) lm(Y ~ poly(X, 4, raw=TRUE), data=df) else NULL
+  })
+  valid_blocks <- which(!sapply(fits, is.null))
+  fits <- fits[valid_blocks]
+  coefs_list <- lapply(fits, coef)
+  
+  block_map <- rep(NA, N)
+  block_map[valid_blocks] <- seq_along(valid_blocks)
+  block_id_mapped <- block_map[block_id]
+  
+  m_hat_functions <- lapply(coefs_list, function(b) {
+    function(x) b[1] + b[2]*x + b[3]*x^2 + b[4]*x^3 + b[5]*x^4
+  })
+  m_hat_primeprime_functions <- lapply(coefs_list, function(b) {
+    function(x) 2*b[3] + 6*b[4]*x + 12*b[5]*x^2
+  })
+  
+  theta_hat <- mean(sapply(1:n, function(i) {
+    j <- block_id_mapped[i]
+    if(!is.na(j)) m_hat_primeprime_functions[[j]](X[i])^2 else NA
+  }), na.rm=TRUE)
+  
+  sigma_hat <- mean(sapply(1:n, function(i) {
+    j <- block_id_mapped[i]
+    if(!is.na(j)) (Y[i] - m_hat_functions[[j]](X[i]))^2 else NA
+  }), na.rm=TRUE)
+  
+  h_hat_amise <- n^(-1/5) * ((35 * sigma_hat)/theta_hat)^(1/5)
+  theta_true <- integrate(function(x) (m_double_prime(x))^2 * dbeta(x, alpha, beta), 0, 1)$value
+  h_amise <- n^(-1/5) * (35 / theta_true)^(1/5)
+  
+  RSS <- sum(sapply(1:n, function(i) {
+    j <- block_id_mapped[i]
+    if(!is.na(j)) (Y[i] - m_hat_functions[[j]](X[i]))^2 else 0
+  }))
+  
+  list(
+    h_hat_amise=h_hat_amise,
+    h_amise=h_amise,
+    theta_hat=theta_hat,
+    sigma_hat=sigma_hat,
+    X=X,
+    Y=Y,
+    RSS=RSS,
+    block_id=block_id_mapped,
+    N=N,
+    n=n
+  )
+}
+
+choose_optimal_N <- function(n, alpha, beta, sd_noise = 1, N_candidates = 1:50) {
+  # Compute N_max based on Ruppert et al. (1995)
+  N_max <- max(min(floor(n / 20), 5), 1)
+  
+  # Compute RSS for N_max first
+  res_max <- run_blockwise_analysis_2(n, N_max, alpha, beta, sd_noise)
+  RSS_Nmax <- res_max$RSS
+  denom <- RSS_Nmax / (n - 5 * N_max)
+  
+  # Compute criterion for all candidate N
+  Cp_vals <- sapply(N_candidates, function(Nc) {
+    res <- run_blockwise_analysis_2(n, Nc, alpha, beta, sd_noise)
+    RSS_N <- res$RSS
+    Cp <- RSS_N / denom - (n - 10 * Nc)
+    return(Cp)
+  })
+  
+  # Find optimal N
+  N_opt <- N_candidates[which.min(Cp_vals)]
+  
+  list(N_candidates = N_candidates, Cp_vals = Cp_vals, N_opt = N_opt)
+}
+### ---- Shiny App ----
+ui <- fluidPage(
+  titlePanel("AMISE Bandwidth Explorer"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("n","Sample size n:",min=100,max=10000,value=1000,step=100,animate=TRUE),
+      numericInput("N","Number of blocks N:",value=10,min=1,step=1),
+      sliderInput("alpha","Beta α:",min=0.1,max=10,value=1,step=0.1,animate=TRUE),
+      sliderInput("beta","Beta β:",min=0.1,max=10,value=2,step=0.1,animate=TRUE),
+      sliderInput("sd_noise","Noise SD:",min=0,max=5,value=1,step=0.1,animate=TRUE)
+    ),
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Single run", plotOutput("h_plot"), verbatimTextOutput("summary_text")),
+        tabPanel("error vs n", plotOutput("hn_plot")),
+        tabPanel("Error vs N", plotOutput("errN_plot")),
+        tabPanel("ĥ vs N", plotOutput("hhatN_plot")),
+        tabPanel("ĥ vs n", plotOutput("hhat_vs_n_plot")),
+        tabPanel("Sample distribution", plotOutput("sample_plot")),
+        tabPanel("True vs Estimated h", plotOutput("h_vs_hhat_plot")),
+        tabPanel("2D Histogram", plotOutput("hist2d_plot")),
+        tabPanel("θ̂ & σ̂ vs N", plotOutput("theta_sigma_vs_N_plot")),
+        tabPanel("Mallow’s Cp", plotOutput("cp_plot"))
+      )
+    )
+  )
+)
+
+server <- function(input, output) {
+  
+  results <- reactive({
+    run_blockwise_analysis_2(input$n, input$N, input$alpha, input$beta, input$sd_noise)
+  })
+  
+  output$h_plot <- renderPlot({
+    res <- results()
+    df <- data.frame(Type=c("h_amise (true)","h_hat_amise"),Value=c(res$h_amise,res$h_hat_amise))
+    ggplot(df,aes(x=Type,y=Value,fill=Type)) + geom_bar(stat="identity") +
+      scale_fill_manual(values=c("blue","red")) + labs(title=paste("True vs estimated AMISE bandwidth (N =",res$N,")")) +
+      theme_minimal()
+  })
+  
+  output$summary_text <- renderPrint({
+    res <- results()
+    cat("True h_amise:",res$h_amise,"\n")
+    cat("Estimated h_hat_amise:",res$h_hat_amise,"\n")
+    cat("Theta_hat:",res$theta_hat,"\n")
+    cat("Sigma_hat:",res$sigma_hat,"\n")
+    cat("Chosen N:",res$N,"(manual)\n")
+  })
+  
+  output$hn_plot <- renderPlot({
+    # Create a fine grid of n values
+    n_vals <- seq(100, 10000, by = 100)
+    
+    # Compute squared error for each n
+    sq_errors <- sapply(n_vals, function(nn) {
+      res <- run_blockwise_analysis_2(nn, input$N, input$alpha, input$beta, input$sd_noise)
+      (res$h_amise - res$h_hat_amise)^2
+    })
+    
+    df <- data.frame(n = n_vals, error = sq_errors)
+    
+    ggplot(df, aes(x = n, y = error)) +
+      geom_line(color = "blue") +
+      geom_point(data = df[seq(1, nrow(df), by = 10), ], aes(x = n, y = error), color = "red") + # optional sparser points
+      labs(title = "Squared Error vs n", x = "n", y = "(h - h_hat)^2") +
+      theme_minimal()
+  })
+  
+  output$errN_plot <- renderPlot({
+    N_vals <- c(1,5,10,20,50)
+    sq_errors <- sapply(N_vals,function(Nc){
+      res <- run_blockwise_analysis_2(input$n, Nc, input$alpha, input$beta, input$sd_noise)
+      (res$h_amise - res$h_hat_amise)^2
+    })
+    df <- data.frame(N=N_vals,error=sq_errors)
+    ggplot(df,aes(x=N,y=error)) + geom_line(color="blue") + geom_point(color="red") +
+      labs(title="Squared Error vs N",x="N",y="(h - h_hat)^2") + theme_minimal()
+  })
+  
+  output$hhatN_plot <- renderPlot({
+    N_vals <- c(1,5,10,20,50)
+    hhat <- sapply(N_vals,function(Nc){
+      run_blockwise_analysis_2(input$n,Nc,input$alpha,input$beta,input$sd_noise)$h_hat_amise
+    })
+    df <- data.frame(N=N_vals,h_hat=hhat)
+    ggplot(df,aes(x=N,y=h_hat)) + geom_line(color="red") + geom_point(color="red") +
+      labs(title="h_hat vs N",x="N",y="h_hat") + theme_minimal()
+  })
+  
+  output$hhat_vs_n_plot <- renderPlot({
+    # Create a fine grid of n values
+    n_vals <- seq(100, 10000, by = 100)
+    
+    # Compute estimated h_hat_amise for each n
+    hhat <- sapply(n_vals, function(nn) {
+      run_blockwise_analysis_2(nn, input$N, input$alpha, input$beta, input$sd_noise)$h_hat_amise
+    })
+    
+    df <- data.frame(n = n_vals, h_hat = hhat)
+    
+    ggplot(df, aes(x = n, y = h_hat)) +
+      geom_line(color = "red") +
+      geom_point(data = df[seq(1, nrow(df), by = 10), ], aes(x = n, y = h_hat), color = "red") + # optional sparser points
+      labs(title = "Estimated h_hat_amise vs n", x = "n", y = "h_hat_amise") +
+      theme_minimal()
+  })
+  
+  output$sample_plot <- renderPlot({
+    res <- results()
+    ggplot(data.frame(X=res$X),aes(x=X)) + geom_histogram(bins=30,fill="skyblue",color="black") +
+      labs(title="Distribution of X ~ Beta(α,β)",x="X",y="Count") + theme_minimal()
+  })
+  
+  output$h_vs_hhat_plot <- renderPlot({
+    N_vals <- c(1,5,10,20,50)
+    results_list <- lapply(N_vals,function(Nc) run_blockwise_analysis_2(input$n,Nc,input$alpha,input$beta,input$sd_noise))
+    df <- data.frame(N=N_vals,
+                     h_amise=sapply(results_list,function(r) r$h_amise),
+                     h_hat_amise=sapply(results_list,function(r) r$h_hat_amise))
+    ggplot(df) + 
+      geom_line(aes(x=N,y=h_amise,color="h_amise"),size=1) +
+      geom_point(aes(x=N,y=h_amise,color="h_amise")) +
+      geom_line(aes(x=N,y=h_hat_amise,color="h_hat_amise"),size=1,linetype="dashed") +
+      geom_point(aes(x=N,y=h_hat_amise,color="h_hat_amise")) +
+      scale_color_manual(values=c("h_amise"="blue","h_hat_amise"="red")) +
+      labs(title="True vs Estimated h",x="N",y="Bandwidth") + theme_minimal()
+  })
+  
+  output$hist2d_plot <- renderPlot({
+    res <- results()
+    ggplot(data.frame(X=res$X,Y=res$Y),aes(x=X,y=Y)) + geom_bin2d(bins=30) +
+      scale_fill_viridis() + labs(title="2D Histogram of (X,Y)") + theme_minimal()
+  })
+  
+  output$theta_sigma_vs_N_plot <- renderPlot({
+    N_vals <- 1:50
+    results_list <- lapply(N_vals,function(Nc) run_blockwise_analysis_2(input$n,Nc,input$alpha,input$beta,input$sd_noise))
+    df <- data.frame(N=N_vals,
+                     theta_hat=sapply(results_list,function(r) r$theta_hat),
+                     sigma_hat=sapply(results_list,function(r) r$sigma_hat))
+    ggplot(df,aes(x=N)) +
+      geom_line(aes(y=theta_hat,color="theta_hat"),size=1) +
+      geom_point(aes(y=theta_hat,color="theta_hat")) +
+      geom_line(aes(y=sigma_hat,color="sigma_hat"),size=1,linetype="dashed") +
+      geom_point(aes(y=sigma_hat,color="sigma_hat")) +
+      scale_color_manual(name="Estimate",values=c("theta_hat"="blue","sigma_hat"="red")) +
+      labs(title=paste("θ̂ & σ̂ vs N (n =",input$n,")"),x="N",y="Value") + theme_minimal()
+  })
+  output$cp_plot <- renderPlot({
+    opt <- choose_optimal_N(input$n,input$alpha,input$beta,input$sd_noise)
+    df <- data.frame(N=opt$N_candidates,F=opt$Cp_vals)
+    ggplot(df,aes(x=N,y=F)) +
+      geom_line(color="purple") + geom_point(color="black") +
+      geom_vline(xintercept=opt$N_opt, linetype="dashed", color="red") +
+      labs(title=paste("Mallow's Cp criterion (Optimal N =", opt$N_opt,")"),
+           x="N",y="F(N)")
+  })
+}
+
+shinyApp(ui=ui,server=server)
+
 
 ```
+
+## **1. Aim of the Simulation Study**
+
+The goal of this simulation study is to explore how the optimal bandwidth $h_{amise}$ and it's estimate using block-wise polynomial estimation $\hat{h}_{amise}$ evolve with respect to the variation of different parameters and hyper-parameters. We also would like to see what number of blocks tends to be the best in order to do such estimations, and weather the number depends on the total amount of data available or not.
+
+## **2. Quantities in the Simulation**
+
+The simulation involves the following quantities
+
+$n$ the number of observations that we simulate, we fix this quantity for each experiment, but we allow it to vary between experiments to see how the quality of our fits, as well as how the optimal number of blocks evolves.
+
+$N$ The number of blocs in which we split our data, again this quantity is fixed at each experiment and can be chosen manually or via selection by minimizing Mallow's $C_p$ but we allow it to vary over different experiments.
+
+$X$, a vector randomly generated following the Beta($\alpha$ ,$\beta$) distribution with values $\alpha$ $\beta$ set manually in order to have distributions with different concentrations, we choose X randomly as to simulate real data.
+
+$m(X)$ our regression function = $\sin(\frac{1}{\frac{x}{3}+0.1})$ which we do not change over different experiments.
+
+$Y$ our response variable given by $Y=m(X)+\epsilon$ for $\epsilon \sim \mathcal{N}(0,\sigma^2)$ where we fix $\sigma^2$ in order to have a robust analysis.
+
+$h_{amise}$ the true value of the optimal bandwidth given by calculating $\theta_{22}$ = $\int{m''(x)}^2f_X(x)dx$ and then setting $h_{amise}$ = $n^{-1/5}(\frac{35\sigma^2}{\theta_{22}})^{1/5}$
+
+$\hat{h}_{amise}$ our estimated value of the optimal bandwidth given by fitting 4th degree polynomials $m_i(x)$ in each block and then estimating $\theta_{22}$ by $\hat{\theta}_{22}(N) \;=\; \frac{1}{n} \sum_{i=1}^n \sum_{j=1}^N  \hat{m}_j''(X_i)\,\hat{m}_j''(X_i)\,\mathbf{1}_{\{X_i \in X_j\}}$
+
+$\hat{\sigma}^2(N) \;=\; \frac{1}{n - 5N}  \sum_{i=1}^{n} \sum_{j=1}^{N}  \left\{ Y_i - \hat{m}^j(X_i) \right\}^2  \; \mathbf{1}_{\{X_i \in X_j\}}$
+
+and so we get that $\hat{h}_{amise}$ = $n^{-1/5}(\frac{35\hat{\sigma}^2}{\hat{\theta}_{22}})^{1/5}$
+
+## **3. Simulation Results and Visualizations**
+
+We now look at our plots to assess the effect of our parameters on estimation, when not specified we set $\alpha =1$ and $\beta =2$
+
+We first look at the effect of sample size over our estimation of $\hat{h}_{amise}$, we expect an increase in the amount of observations n to improve our estimation and this is indeed what we see as shown in the following graph.
+
+![figure 1 : squared error against sample size n](squared_error_vs_n.png)
+
+Indeed we see that on average the error is decreasing with sample size.
+
+Next the effect of the number of blocks $N$ influences over the estimation of our parameters $\hat{\theta}_{22}$ and $\hat{\sigma}^2$ is shown in the graph below
+
+![$\hat{\theta}_{22}$ and $\hat{\sigma^2}$ against block size N](theta%20and%20sigma.png)
+
+We see a steady increase of $\hat{\theta}_{22}$ whilst $\hat{\sigma}^2$ stays stable around the true value. This $\hat{\theta}_{22}$ quantifies the curvature of our polynomial interpretations $m_i(x)$ and so, as $N$ grows, the amount of observations in each blocks gets smaller, and as such the curvature of our fits will increase.
+
+Previously, all our plots have been with $\alpha=1$ and $\beta =2$ but now we look at the effect of variation of these parameters on our estimation. Indeed when $\alpha$ is much larger than $\beta$ and vice versa, the distribution becomes very concentrated in one side of the support, meaning some blocks will get a huge amount of observations whilst others will get very few, this is shown in the histograms below.
+
+::: {=latex}
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{cc}
+\includegraphics[width=0.45\textwidth]{alpha = 1, beta = 2.png} &
+\includegraphics[width=0.45\textwidth]{alpha = 1, beta = 10.png} \\
+\includegraphics[width=0.45\textwidth]{alpha = 10, beta = 1.png} &
+\includegraphics[width=0.45\textwidth]{alpha = 1 beta = 1.png} \\
+\end{tabular}}
+\end{table}
+:::
+
+Distributions of Beta( $\alpha$ , $\beta$) for, from left to right top to bottom, $\alpha=1, \beta=2$ ,$\alpha=1, \beta=10$ , $\alpha=10, \beta=1$, $\alpha=1, \beta=1$
+
+We now assess the quality of fits for each of these distributions ::: {=latex}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{cc}
+\includegraphics[width=0.45\textwidth]{squared_error_vs_n.png} &
+\includegraphics[width=0.45\textwidth]{error 1,10.png} \\
+\includegraphics[width=0.45\textwidth]{error 10,1.png} &
+\includegraphics[width=0.45\textwidth]{error 1,1.png} \\
+\end{tabular}}
+\end{table}
+
+:::
+
+Squared error of $h_{amise}$ for varying parameters of Beta( $\alpha$ , $\beta$) for N=10(optimal)
+
+These plots are of great interest. We see that the best plots are in order, alpha =1, beta =10, alpha =1, beta =1, alpha =1, beta =2, alpha =10, beta =1. This is due to the curvature of our regression function m(x). In the case of Beta(1,10), most observations are concentrated near 0, so each block contains many points in a narrow region, allowing the polynomial fits to accurately capture the local behavior of the function $m(x)=sin⁡(1/(x/3+0.1))$ . For Beta(1,1) (uniform), points are spread evenly across the interval. Although this introduces more variability across blocks, the function is sufficiently smooth in some regions, yielding relatively good fits. For Beta(1,2), the distribution is slightly skewed but less extreme than Beta(1,10), so some blocks cover sparse regions with fewer points, reducing fit accuracy. Finally, for Beta(10,1), most points are concentrated near 1, a region where 𝑚 ( 𝑥 ) m(x) varies rapidly. This causes blocks to have insufficient coverage in regions with high curvature, leading to the poorest fits.
+
+We now interest ourselves in the evolution of $\hat{h}_{amise}$ as N grows, to do this we plot the values of our estimate for different values of N after setting our number of estimations to be 5000
+
+![evolutioin of estimate value against block number](h_hat%20vs%20N.png)
+
+We see that $h_{amise}$ is decreasing on average and this is exactly what we expect. Indeed we have that the denominator in the computation of $h_{amise}$ is given by $$n^{1/5}\theta_{22}$$
+
+where $\theta_{22}$ is proportional to the curvature of our functions m, and as seen earlier increases with N meaning that the denominator is steadily getting bigger, meaning our estimate will get closer and closer to 0.
+
+We now look into if our choice of block size, should depend on our sample size n. The computation of optimal N is quite expensive, so we were unable to plot the graph of optimal values of N against the sample size n so we instead only look at them for certain points.
+
+::: {=latex}
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{cc}
+\includegraphics[width=0.45\textwidth]{n=100, N =1.png} &
+\includegraphics[width=0.45\textwidth]{n=1000, N=3.png} \\
+\includegraphics[width=0.45\textwidth]{n = 2500, N=6.png} &
+\includegraphics[width=0.45\textwidth]{n=5000 N=2.png} \\
+\includegraphics[width=0.45\textwidth]{n=7500 N=9.png} &
+\includegraphics[width=0.45\textwidth]{n= 10000, N=17.png} \\
+\end{tabular}}
+\end{table}
+:::
+
+in order left to right top to bottom : n=100 N=1, n=1000 N=3, n=2500 N=6, n=5000 N=2, n=7500 N=9, n=10000 N =17
+
+We see that on average optimal block size grows with number of observations, this makes sense as we expect the number of observations needed per block to stay about the same and so we need more blocks for more observations, this depends on our data however though so can sometimes fail, as we see in the case for n=6000.
